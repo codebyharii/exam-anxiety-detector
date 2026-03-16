@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExamMind — AI Anxiety Detector</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <span class="logo-dot"></span>
+      EXAM<span class="green">MIND</span>
+    </div>
+    <div class="nav-right">
+      <span class="nav-badge">NLP · BERT · Gemini</span>
+      <span class="nav-badge">Healthcare</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">AI-Powered Mental Wellness</p>
+      <h1>EXAM<br /><span class="green">ANXIETY</span><br />DETECTOR</h1>
+      <p class="hero-sub">
+        Paste your pre-exam thoughts below. Our NLP + Gemini AI pipeline
+        will classify your anxiety level and offer personalised coping strategies.
+      </p>
+      <div class="level-chips">
+        <span class="chip chip-green">😌 Low</span>
+        <span class="chip chip-yellow">😟 Moderate</span>
+        <span class="chip chip-red">😰 High</span>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="brain-wrap">
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+        <div class="ring r3"></div>
+        <div class="nodes">
+          <span class="node"></span><span class="node"></span>
+          <span class="node"></span><span class="node"></span>
+          <span class="node"></span><span class="node"></span>
+        </div>
+        <div class="brain-core">🧠</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- INPUT SECTION -->
+    <section class="input-section">
+      <div class="section-head">
+        <h2 class="section-title">ANXIETY ANALYZER</h2>
+        <span class="section-sub">// enter student text below</span>
+      </div>
+
+      <!-- Sample buttons -->
+      <p class="sample-label">TRY A SAMPLE →</p>
+      <div class="samples">
+        <button class="sample-btn" data-idx="0">😌 Low anxiety</button>
+        <button class="sample-btn" data-idx="1">😟 Moderate anxiety</button>
+        <button class="sample-btn" data-idx="2">😰 High anxiety</button>
+      </div>
+
+      <!-- Editor box -->
+      <div class="editor-box">
+        <div class="editor-bar">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green-dot"></span>
+          <span class="editor-filename">student_input.txt</span>
+        </div>
+        <textarea
+          id="studentText"
+          placeholder="Type or paste your pre-exam thoughts, feelings, or reflections here…
+
+Example: 'I feel really overwhelmed about tomorrow's exam. I haven't slept properly and my mind keeps going blank whenever I try to revise. I'm scared I'm going to fail.'"
+        ></textarea>
+        <div class="editor-footer">
+          <span id="charCount" class="char-count">0 characters</span>
+          <button id="analyzeBtn" class="analyze-btn">
+            <span class="btn-spinner" id="btnSpinner"></span>
+            <span id="btnLabel">ANALYSE TEXT</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading bar -->
+      <div class="loading-bar" id="loadingBar">
+        <div class="loading-fill"></div>
+      </div>
+
+      <!-- Error banner -->
+      <div class="error-banner" id="errorBanner" hidden>
+        <span>⚠</span> <span id="errorMsg"></span>
+      </div>
+    </section>
+
+    <!-- RESULT SECTION -->
+    <section class="result-section" id="resultSection" hidden>
+
+      <div class="result-card" id="resultCard">
+
+        <!-- Result header -->
+        <div class="result-header">
+          <div class="result-level-wrap">
+            <div class="level-icon" id="levelIcon"></div>
+            <div>
+              <div class="level-name" id="levelName"></div>
+              <div class="level-sub" id="levelSub"></div>
+            </div>
+          </div>
+          <div class="conf-badge" id="confBadge"></div>
+        </div>
+
+        <!-- Score bars -->
+        <div class="meters">
+          <p class="meter-title">CLASSIFICATION SCORES</p>
+          <div class="meter-row">
+            <span class="mlabel green">LOW</span>
+            <div class="track"><div class="fill fill-green" id="barLow"></div></div>
+            <span class="mpct" id="pctLow">—</span>
+          </div>
+          <div class="meter-row">
+            <span class="mlabel yellow">MODERATE</span>
+            <div class="track"><div class="fill fill-yellow" id="barMod"></div></div>
+            <span class="mpct" id="pctMod">—</span>
+          </div>
+          <div class="meter-row">
+            <span class="mlabel red">HIGH</span>
+            <div class="track"><div class="fill fill-red" id="barHigh"></div></div>
+            <span class="mpct" id="pctHigh">—</span>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="result-message" id="resultMessage"></div>
+
+        <!-- Signals -->
+        <div class="signals-block">
+          <p class="block-title">DETECTED STRESS SIGNALS</p>
+          <div class="signals-list" id="signalsList"></div>
+        </div>
+
+        <!-- Tips -->
+        <div class="tips-block">
+          <p class="block-title">ANXIETY MANAGEMENT TIPS</p>
+          <div class="tips-grid" id="tipsGrid"></div>
+        </div>
+
+      </div>
+
+      <!-- Ethics disclaimer -->
+      <div class="disclaimer">
+        <span class="disc-icon">⚠️</span>
+        <p>
+          <strong>Non-Diagnostic Tool:</strong>
+          This tool is designed for supportive purposes only and does not provide
+          medical diagnosis. Please consult a qualified mental health professional
+          if you are experiencing severe distress.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- INFO SECTION -->
+    <section class="info-section">
+      <div class="section-head">
+        <h2 class="section-title">HOW IT WORKS</h2>
+        <span class="section-sub">// full-stack AI pipeline</span>
+      </div>
+      <div class="arch-list">
+        <div class="arch-item"><span class="arch-n">01</span><div><strong>Text Input</strong><p>Student enters pre-exam thoughts or reflections.</p></div></div>
+        <div class="arch-item"><span class="arch-n">02</span><div><strong>NLP Preprocessing</strong><p>Lowercase, noise removal, stopword stripping, tokenisation.</p></div></div>
+        <div class="arch-item"><span class="arch-n">03</span><div><strong>Gemini AI Classification</strong><p>Prompt-based classification via Google Generative AI (Gemini 1.5 Flash).</p></div></div>
+        <div class="arch-item"><span class="arch-n">04</span><div><strong>Anxiety Level Output</strong><p>Returns Low / Moderate / High with confidence score and signals.</p></div></div>
+        <div class="arch-item"><span class="arch-n">05</span><div><strong>Coping Tips</strong><p>Personalised tips served based on classified anxiety level.</p></div></div>
+      </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section class="info-section" style="padding-top:0;">
+      <div class="section-head">
+        <h2 class="section-title">TECH STACK</h2>
+        <span class="section-sub">// built with</span>
+      </div>
+      <div class="tech-wrap">
+        <span class="tech">Python 3.9+</span>
+        <span class="tech">Flask</span>
+        <span class="tech">Google Gemini API</span>
+        <span class="tech">NLP Preprocessing</span>
+        <span class="tech">BERT / Transformers</span>
+        <span class="tech">HTML · CSS · JS</span>
+        <span class="tech">REST API</span>
+        <span class="tech">Generative AI</span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>EXAMMIND · AI EXAM ANXIETY DETECTOR · HEALTHCARE TRACK</span>
+    <span>NON-DIAGNOSTIC · ANONYMISED · ETHICAL AI</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
