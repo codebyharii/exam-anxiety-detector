@@ -9,7 +9,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ai_model import analyze_anxiety
 
-# ── Logging ──────────────────────────────────────────────────────────────────
+# ── Logging ───────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s  [%(levelname)s]  %(message)s",
@@ -17,12 +17,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# ── App setup ─────────────────────────────────────────────────────────────────
+# ── App setup ────────────────────────────────────────────────────────────
 app = Flask(__name__)
 CORS(app)
 
 
-# ── Routes ───────────────────────────────────────────────────────────────────
+# ── Routes 
 @app.route("/", methods=["GET"])
 def health():
     return jsonify({"status": "ok", "message": "Exam Anxiety Detector API is running."})
