@@ -124,7 +124,7 @@ Health check.
 
 ---
 
-## Team
+## Team name
 
 | Name         | Role      |
 |--------------|-----------|
